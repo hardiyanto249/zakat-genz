@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Zakat Sat Set — LAZ Harfa | Solusi Buat Kaum Rebahan</title>
+
+    <meta name="description"
+
+        content="Kalkulator zakat paling sat set. Ngitung 2 menit, bayar pake QRIS/GoPay. Zakat itu wajib, ngitungnya cukup rebahan aja. ✨" />
+
+    <meta property="og:title" content="Zakat Sat Set Sekarang — LAZ Harfa" />
+
+    <meta property="og:description" content="Kalkulator zakat otomatis. Gratis. 2 menit. Tinggal scan QRIS." />
+
+    <meta property="og:image" content="https://placehold.co/1200x630/1a1a2e/A78BFA?text=LAZ+HARFA+%F0%9F%8C9" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+
+
+
+<body>
+
+
+
+    <!-- â”€â”€ NAVBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+
+    <nav class="navbar" id="navbar">
+
+        <div class="nav-inner">
+
+            <div class="nav-logo">
+
+                <span class="logo-icon">🌙</span>
+
+                <span class="logo-text">LAZ <strong>Harfa</strong></span>
+
+            </div>
+
+            <a href="https://t.me/lazharfa_tele_bot?start=BNTN27" target="_blank" class="btn btn-sm btn-outline"
+
+                id="nav-cta">
+
+                Bayar Zakat
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+
+    <section class="hero" id="hero">
+
+        <div class="hero-bg">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+        <div class="container">
+            <div class="badge-pill" id="badge-pill">
+                <span class="badge-dot"></span>
+                Bukan Cuma Pas Ramadan ✨
+            </div>
+            <h1 class="hero-title">
+                Nyangka zakat <span class="gradient-text">cuma pas puasa</span> doang? 🤔
+            </h1>
+            <p class="hero-sub">
+                Faktanya, <strong>Zakat Penghasilan & Maal</strong> wajib dikeluarin pas lo udah gajian/punya aset. Cek nominal lo dalam <strong>2 menit</strong>. Langsung scan QRIS, 100% transparan, Nggak pake ribet!
+            </p>
+            <div class="hero-cta-group">
+                <a href="#kalkulator" class="btn btn-primary btn-lg" id="hero-cta-calc">
+                    Hitung Zakatku Sekarang 🧮
+                </a>
+                <a href="https://t.me/lazharfa_tele_bot?start=BNTN27" target="_blank" class="btn btn-ghost btn-lg"
+                    id="hero-cta-bot">
+                    Buka Bot Telegram →
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── TRUST BAR ─────────────────────────────────────────────────────────────── -->
+    <div class="trust-bar">
+        <div class="trust-inner">
+            <span>✅ Terverifikasi BAZNAS</span>
+            <span>🔒 100% Tersalurkan (No Potongan Aneh-Aneh)</span>
+            <span>📊 Laporan Super Transparan</span>
+            <span>⚡ Sat Set Cuma 2 Menit</span>
+            <span>📱 Support QRIS, GoPay, OVO</span>
+            <!-- duplicate for infinite scroll -->
+            <span>✅ Terverifikasi BAZNAS</span>
+            <span>🔒 100% Tersalurkan (No Potongan Aneh-Aneh)</span>
+            <span>📊 Laporan Super Transparan</span>
+            <span>⚡ Sat Set Cuma 2 Menit</span>
+            <span>📱 Support QRIS, GoPay, OVO</span>
+        </div>
+    </div>
+
+    <!-- ── KALKULATOR ────────────────────────────────────────────────────────────── -->
+    <section class="section" id="kalkulator">
+        <div class="container">
+            <div class="section-header">
+                <h2>Kalkulator Zakat <span class="gradient-text">Paling Sat Set</span> ⚡</h2>
+                <p>Input gaji/aset kamu di bawah — algoritma kami yang ngitungin semuanya</p>
+            </div>
+
+            <div class="calc-wrapper">
+                <!-- TAB -->
+                <div class="calc-tabs" role="tablist">
+                    <button class="calc-tab active" id="tab-penghasilan" data-tab="penghasilan" role="tab">
+                        💼 Zakat Penghasilan
+                    </button>
+                    <button class="calc-tab" id="tab-maal" data-tab="maal" role="tab">
+                        💰 Zakat Maal
+                    </button>
+                    <button class="calc-tab" id="tab-fitrah" data-tab="fitrah" role="tab" style="display:none;">
+                        🌾 Zakat Fitrah
+                    </button>
+                </div>
+
+                <!-- PANEL: PENGHASILAN -->
+                <div class="calc-panel active" id="panel-penghasilan">
+                    <div class="calc-form">
+                        <div class="form-group">
+                            <label for="gaji">Gaji Bulanan (Gaji Pokok + Bonus / Freelance)</label>
+                            <div class="input-wrap">
+                                <span class="input-prefix">Rp</span>
+                                <input type="text" id="gaji" placeholder="5.000.000" inputmode="numeric" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tunjangan">Tunjangan & Pendapatan Lain</label>
+                            <div class="input-wrap">
+                                <span class="input-prefix">Rp</span>
+                                <input type="text" id="tunjangan" placeholder="0" inputmode="numeric" />
+                            </div>
+                        </div>
+                        <div class="nisab-info" id="nisab-info-penghasilan">
+                            <span class="nisab-label">Nisab Zakat Penghasilan 2026</span>
+                            <span class="nisab-value">Rp 7.900.000 / bulan</span>
+                            <span class="nisab-note">(85gr emas × harga emas saat ini)</span>
+                        </div>
+                        <button class="btn btn-primary btn-full" id="hitung-penghasilan">
+                            Cek Zakat Penghasilan Gue →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PANEL: MAAL -->
+                <div class="calc-panel" id="panel-maal">
+                    <div class="calc-form">
+                        <div class="form-group">
+                            <label for="tabungan">Total Aset Tabungan, Saham & Investasi</label>
+                            <div class="input-wrap">
+                                <span class="input-prefix">Rp</span>
+                                <input type="text" id="tabungan" placeholder="10.000.000" inputmode="numeric" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="emas">Nilai Emas / Perak yang Dimiliki</label>
+                            <div class="input-wrap">
+                                <span class="input-prefix">Rp</span>
+                                <input type="text" id="emas" placeholder="0" inputmode="numeric" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="hutang">Hutang yang Jatuh Tempo</label>
+                            <div class="input-wrap">
+                                <span class="input-prefix">Rp</span>
+                                <input type="text" id="hutang" placeholder="0" inputmode="numeric" />
+                            </div>
+                        </div>
+                        <div class="nisab-info" id="nisab-info-maal">
+                            <span class="nisab-label">Nisab Zakat Maal 2026</span>
+                            <span class="nisab-value">Rp 94.800.000 / tahun</span>
+                            <span class="nisab-note">(85gr emas, sudah haul 1 tahun)</span>
+                        </div>
+                        <button class="btn btn-primary btn-full" id="hitung-maal">
+                            Cek Zakat Maal Gue →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PANEL: FITRAH -->
+                <div class="calc-panel" id="panel-fitrah" style="display:none;">
+                    <div class="calc-form">
+                        <div class="form-group">
+                            <label for="jiwa">Jumlah Jiwa dalam Keluarga</label>
+                            <div class="input-counter">
+                                <button class="counter-btn" id="minus-jiwa" aria-label="Kurang">−</button>
+                                <input type="number" id="jiwa" value="1" min="1" max="20" readonly />
+                                <button class="counter-btn" id="plus-jiwa" aria-label="Tambah">+</button>
+                            </div>
+                        </div>
+                        <div class="nisab-info">
+                            <span class="nisab-label">Nominal Zakat Fitrah LAZ Harfa 2026</span>
+                            <span class="nisab-value">Rp 45.000 / jiwa</span>
+                            <span class="nisab-note">(Ditetapkan oleh LAZ Harfa)</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-full" id="hitung-fitrah">
+                        Cek Zakat Fitrah Gue →
+                    </button>
+                </div>
+            </div>
+
+            <!-- HASIL -->
+            <div class="calc-result hidden" id="calc-result">
+                <div class="result-header">
+                    <span class="result-icon">✨</span>
+                    <div>
+                        <div class="result-label">Zakat Yang Harus Lo Keluarin:</div>
+                        <div class="result-amount" id="result-amount">Rp 0</div>
+                    </div>
+                </div>
+                <p class="result-desc" id="result-desc"></p>
+                <div class="result-actions">
+                    <a href="https://t.me/lazharfa_tele_bot?start=BNTN27" target="_blank"
+                        class="btn btn-primary btn-full" id="bayar-sekarang">
+                        💚 Bayar Zakat Sekarang via Bot
+                    </a>
+                    <button class="btn btn-outline btn-full" id="share-result">
+                        📤 Share Hasil ke Teman
+                    </button>
+                </div>
+                <div class="result-note">
+                    🔍 Tenang aja, dana lo langsung disalurin & laporannya 100% transparan
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── LIVE TICKER ───────────────────────────────────────────────────────────── -->
+    <div class="live-ticker" id="live-ticker">
+        <div class="ticker-dot"></div>
+        <span class="ticker-label">🔴 LIVE</span>
+        <div class="ticker-track" id="ticker-track">
+            <div class="ticker-item">Raka dari Jaksel abis checkout Zakat Penghasilan 💸</div>
+            <div class="ticker-item">Nadia dari Bandung baru aja sedekah rutin Rp 25.000 ✅</div>
+            <div class="ticker-item">Bima (Freelancer) dari Bali nunai-in Zakat Maal-nya 💚</div>
+            <div class="ticker-item">Alya abis dapet rezeki, langsung sedekah Rp 50.000 ✨</div>
+            <div class="ticker-item">Dimas pakai QRIS GoPay buat bayar Zakat Maal 🔥</div>
+        </div>
+        <span class="ticker-count" id="ticker-today">47 sedekah hari ini</span>
+    </div>
+
+    <!-- â”€â”€ QUICK SEDEKAH â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+
+    <section class="section section-dark" id="quick-sedekah">
+
+        <div class="container">
+
+            <div class="section-header">
+
+                <div class="section-tag">⚡ Buat Lo Yang Gak Suka Ribet</div>
+
+                <h2>Checkout <span class="gradient-text">Pahala</span> Sekarang</h2>
+
+                <p>Pilih nominalnya, scan, beres. Semudah checkout keranjang oren! 🛍️</p>
+
+            </div>
+
+
+
+            <!-- MOOD SEDEKAH -->
+
+            <div class="mood-row">
+
+                <span class="mood-label">Lagi ngerasa apa hari ini? Checkout pahala yuk:</span>
+
+                <div class="mood-chips">
+
+                    <button class="mood-chip active" data-mood="all" id="mood-all">Semua 🌟</button>
+
+                    <button class="mood-chip" data-mood="gajian" id="mood-gajian">Cair Gajian 💰</button>
+
+                    <button class="mood-chip" data-mood="healing" id="mood-healing">Lagi Healing 🌿</button>
+
+                    <button class="mood-chip" data-mood="syukur" id="mood-syukur">Rasa Syukur 🙏</button>
+
+                    <button class="mood-chip" data-mood="tantangan" id="mood-tantangan">Ikut Challenge 🔥</button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- QUICK AMOUNT CARDS -->
+
+            <div class="quick-grid" id="quick-grid">
+
+                <div class="quick-card featured" data-amount="10000" data-mood="healing syukur all">
+
+                    <div class="quick-badge-popular">Paling Banyak 🔥</div>
+
+                    <div class="quick-amount">Rp 10.000</div>
+
+                    <div class="quick-impact">🤲 Infaq Yatim &amp; Dhuafa</div>
+
+                    <div class="quick-freq">disalurkan via LAZ Harfa</div>
+
+                    <button class="btn btn-primary quick-btn" data-amount="10000" id="quick-10k">Sedekah →</button>
+
+                </div>
+
+                <div class="quick-card" data-amount="25000" data-mood="gajian syukur all">
+
+                    <div class="quick-amount">Rp 25.000</div>
+
+                    <div class="quick-impact">🤲 Infaq Yatim &amp; Dhuafa</div>
+
+                    <div class="quick-freq">disalurkan via LAZ Harfa</div>
+
+                    <button class="btn btn-primary quick-btn" data-amount="25000" id="quick-25k">Sedekah →</button>
+
+                </div>
+
+                <div class="quick-card" data-amount="50000" data-mood="gajian tantangan all">
+
+                    <div class="quick-amount">Rp 50.000</div>
+
+                    <div class="quick-impact">🌊 Bencana Sumatra</div>
+
+                    <div class="quick-freq">bantuan darurat &amp; pemulihan</div>
+
+                    <button class="btn btn-primary quick-btn" data-amount="50000" id="quick-50k">Sedekah →</button>
+
+                </div>
+
+                <div class="quick-card" data-amount="100000" data-mood="gajian tantangan all">
+
+                    <div class="quick-amount">Rp 100.000</div>
+
+                    <div class="quick-impact">💧 Wakaf Sumur Air Bersih</div>
+
+                    <div class="quick-freq">pahala jariyah yang terus mengalir</div>
+
+                    <button class="btn btn-primary quick-btn" data-amount="100000" id="quick-100k">Sedekah →</button>
+
+                </div>
+
+                <div class="quick-card" data-amount="250000" data-mood="gajian tantangan all">
+
+                    <div class="quick-amount">Rp 250.000</div>
+
+                    <div class="quick-impact">💧 Wakaf Sumur Air Bersih</div>
+
+                    <div class="quick-freq">pahala jariyah yang terus mengalir</div>
+
+                    <button class="btn btn-primary quick-btn" data-amount="250000" id="quick-250k">Sedekah →</button>
+
+                </div>
+
+                <div class="quick-card quick-custom" data-amount="0" data-mood="all">
+
+                    <div class="quick-amount">Nominal Bebas</div>
+
+                    <div class="quick-impact">✨ Sesuai kemampuan kamu</div>
+
+                    <div class="quick-freq">tidak ada yang terlalu kecil</div>
+
+                    <button class="btn btn-outline quick-btn" id="quick-custom">Pilih Nominal →</button>
+
+                </div>
+
+            </div>
+
+
+
+            <p class="quick-note">💳 Transfer via QRIS · BSI · BCA · Mandiri · GoPay · OVO</p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- â”€â”€ STREAK CHALLENGE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+
+    <section class="section" id="streak-section">
+
+        <div class="container">
+
+            <div class="section-header">
+
+                <div class="section-tag">🔥 Level Up Keimanan Lo</div>
+
+                <h2>Pahala <span class="gradient-text">Streak Challenge</span></h2>
+
+                <p>Jaga streak harian lo kayak jaga streak di medsos. Streak terjaga = pahala ngalir! 🚀</p>
+
+            </div>
+
+
+
+            <div class="streak-wrapper">
+
+                <!-- STREAK TRACKER -->
+
+                <div class="streak-tracker" id="streak-tracker">
+
+                    <div class="streak-header">
+
+                        <div class="streak-fire" id="streak-fire">🔥</div>
+
+                        <div>
+
+                            <div class="streak-num" id="streak-num">0</div>
+
+                            <div class="streak-label-text">hari berturut-turut</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="streak-days" id="streak-days">
+
+                        <!-- filled by JS -->
+
+                    </div>
+
+                    <div class="streak-msg" id="streak-msg">Mulai streakmu hari ini! 💪</div>
+
+                    <a href="https://t.me/harta_infaq_z_bot?start=DONASI_BNTN27" target="_blank"
+
+                        class="btn btn-primary btn-full" id="streak-cta">
+
+                        🔥 Join Challenge-nya Sekarang
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- CHALLENGE LEADERBOARD (FOMO) -->
+
+                <div class="challenge-info">
+
+                    <h3>Bergabung dengan <span class="gradient-text">1.247 peserta</span> challenge ini</h3>
+
+                    <div class="challengers">
+
+                        <div class="challenger-row" id="ch-1">
+
+                            <div class="challenger-avatars">
+
+                                <span>🧕</span><span>👦</span><span>👧</span>
+
+                            </div>
+
+                            <span class="challenger-text">Gen Z Squad se-Tangerang <strong>Streak 7 hari tembus!</strong>
+
+                                🏆</span>
+
+                        </div>
+
+                        <div class="challenger-row" id="ch-2">
+
+                            <div class="challenger-avatars"><span>👨</span><span>👩</span></div>
+
+                            <span class="challenger-text">Raka & Circle-nya <strong>Streak 5 hari</strong> ⚡</span>
+
+                        </div>
+
+                        <div class="challenger-row" id="ch-3">
+
+                            <div class="challenger-avatars"><span>🧑</span></div>
+
+                            <span class="challenger-text">Kamu bisa jadi yang berikutnya! 👀</span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="badges-preview">
+
+                        <div class="badge-item" id="badge-3">
+
+                            <div class="badge-icon">⚡</div>
+
+                            <div class="badge-name">Starter</div>
+
+                            <div class="badge-req">3 hari</div>
+
+                        </div>
+
+                        <div class="badge-item" id="badge-7">
+
+                            <div class="badge-icon">🔥</div>
+
+                            <div class="badge-name">On Fire</div>
+
+                            <div class="badge-req">7 hari</div>
+
+                        </div>
+
+                        <div class="badge-item" id="badge-30">
+
+                            <div class="badge-icon">💎</div>
+
+                            <div class="badge-name">Diamond</div>
+
+                            <div class="badge-req">30 hari</div>
+
+                        </div>
+
+                        <div class="badge-item" id="badge-100">
+
+                            <div class="badge-icon">👑</div>
+
+                            <div class="badge-name">Legend</div>
+
+                            <div class="badge-req">100 hari</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- â”€â”€ IMPACT VISUALIZER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+
+    <section class="section section-dark" id="impact-viz">
+
+        <div class="container">
+
+            <div class="section-header">
+
+                <div class="section-tag">&#x1F49A; Infak &amp; Sedekah</div>
+
+                <h2>Sedekahmu <span class="gradient-text">Berarti Besar</span></h2>
+
+                <p>Geser slider &mdash; lihat berapa besar kontribusimu untuk program LAZ Harfa</p>
+
+
+
+                <p style="font-size:0.8rem; color: var(--text-muted); margin-top:6px; font-style:italic;">✨ Infak &amp;
+
+                    Sedekah bisa ditunaikan kapan saja, berapa saja &mdash; berbeda dengan Zakat yang memiliki ketentuan
+
+                    nisab &amp; haul.</p>
+
+            </div>
+
+
+
+            <div class="impact-wrapper">
+
+                <div class="impact-slider-box">
+
+                    <label class="impact-slider-label">Masukkan nominal sedekah:</label>
+
+                    <div class="impact-input-row">
+
+                        <span class="impact-rp">Rp</span>
+
+                        <input type="range" id="impact-slider" min="5000" max="500000" step="5000" value="50000" />
+
+                    </div>
+
+                    <div class="impact-amount-display" id="impact-amount-display">Rp 50.000</div>
+
+                </div>
+
+
+
+                <div class="impact-cards-row" id="impact-cards-row">
+
+                    <!-- filled by JS -->
+
+                </div>
+
+
+
+                <a href="https://t.me/harta_infaq_z_bot?start=DONASI_BNTN27" target="_blank"
+
+                    class="btn btn-primary btn-lg impact-cta" id="impact-cta-btn">
+
+                    💚 Bayar Infak / Sedekah via Bot
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- â”€â”€ PROGRAM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+
+    <section class="section section-dark" id="program">
+
+        <div class="container">
+
+            <div class="section-header">
+
+                <h2>Dana Zakatmu <span class="gradient-text">Untuk Apa?</span></h2>
+
+                <p>Pilih program yang kamu mau support — semua transparan & terverifikasi</p>
+
+            </div>
+
+            <div class="program-grid">
+
+                <div class="program-card" id="prog-beasiswa">
+
+                    <div class="program-emoji">🎓</div>
+
+                    <h3>Beasiswa Anak Yatim</h3>
+
+                    <p>Biaya sekolah & kebutuhan belajar untuk anak-anak kurang mampu</p>
+
+                    <div class="program-progress">
+
+                        <div class="progress-bar">
+
+                            <div class="progress-fill" style="width: 73%"></div>
+
+                        </div>
+
+                        <span class="progress-label">73% terpenuhi</span>
+
+                    </div>
+
+                </div>
+
+                <div class="program-card" id="prog-bencana">
+
+                    <div class="program-emoji">🌊</div>
+
+                    <h3>Bencana Sumatra</h3>
+
+                    <p>Bantuan darurat & pemulihan untuk korban bencana alam Sumatra</p>
+
+                    <div class="program-progress">
+
+                        <div class="progress-bar">
+
+                            <div class="progress-fill" style="width: 45%"></div>
+
+                        </div>
+
+                        <span class="progress-label">45% terpenuhi</span>
+
+                    </div>
+
+                </div>
+
+                <div class="program-card" id="prog-kesehatan">
+
+                    <div class="program-emoji">🏥</div>
+
+                    <h3>Kesehatan Dhuafa</h3>
+
+                    <p>Akses layanan kesehatan gratis untuk keluarga tidak mampu</p>
+
+                    <div class="program-progress">
+
+                        <div class="progress-bar">
+
+                            <div class="progress-fill" style="width: 60%"></div>
+
+                        </div>
+
+                        <span class="progress-label">60% terpenuhi</span>
+
+                    </div>
+
+                </div>
+
+                <div class="program-card" id="prog-ekonomi">
+
+                    <div class="program-emoji">🌱</div>
+
+                    <h3>Pemberdayaan Ekonomi</h3>
+
+                    <p>Modal usaha & pelatihan untuk keluarga pra-sejahtera</p>
+
+                    <div class="program-progress">
+
+                        <div class="progress-bar">
+
+                            <div class="progress-fill" style="width: 30%"></div>
+
+                        </div>
+
+                        <span class="progress-label">30% terpenuhi</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- â”€â”€ HOW IT WORKS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+
+    <section class="section" id="cara-kerja">
+
+        <div class="container">
+
+            <div class="section-header">
+
+                <h2>Semudah <span class="gradient-text">Nge-chat Ayang</span> 📲</h2>
+
+                <p>Gak pake ribet install aplikasi. 3 klik doang beres.</p>
+
+            </div>
+
+            <div class="steps-grid">
+
+                <div class="step-card" id="step-1">
+
+                    <div class="step-num">01</div>
+
+                    <div class="step-icon">🤖</div>
+
+                    <h3>Klik Link Bot-nya</h3>
+
+                    <p>Langsung aja klik <strong>@lazharfa_tele_bot</strong>. Gak menuhin memori HP karena gak perlu install apk baru!</p>
+
+                </div>
+
+                <div class="step-arrow">→</div>
+
+                <div class="step-card" id="step-2">
+
+                    <div class="step-num">02</div>
+
+                    <div class="step-icon">🧮</div>
+
+                    <h3>Hitung & Pilih Program</h3>
+
+                    <p>Bot akan bantu hitung zakat dan tunjukkan program yang bisa kamu dukung.</p>
+
+                </div>
+
+                <div class="step-arrow">→</div>
+
+                <div class="step-card" id="step-3">
+
+                    <div class="step-num">03</div>
+
+                    <div class="step-icon">✅</div>
+
+                    <h3>Scan QRIS & Selesai</h3>
+
+                    <p>Bisa pake GoPay, OVO, m-Banking. Laporan langsung dikirim ke chat saat itu juga.</p>
+
+                </div>
+
+            </div>
+
+            <div class="cta-center">
+
+                <a href="https://t.me/lazharfa_tele_bot?start=BNTN27" target="_blank" class="btn btn-primary btn-xl"
+
+                    id="cta-bot-main">
+
+                    Mulai Berzakat Sekarang 🚀
+
+                </a>
+
+                <p class="cta-note">Udah dipercaya ama <strong>2.847 bestie</strong> lainnya · Rating ⭐  4.9/5</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- â”€â”€ TESTIMONIAL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+
+    <section class="section section-dark" id="testimoni">
+
+        <div class="container">
+
+            <div class="section-header">
+
+                <h2>Kata Mereka yang Sudah <span class="gradient-text">Berzakat</span></h2>
+
+            </div>
+
+            <div class="testi-grid">
+
+                <div class="testi-card" id="testi-1">
+
+                    <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+
+                    <p>"Sumpah ini nge-bantu banget buat kaum rebahan! Dulu mikir zakat itu ribet, ternyata pake bot ini 2 menit kelar. Pake QRIS pula! 🙏Œ"</p>
+
+                    <div class="testi-author">
+
+                        <div class="testi-avatar">F</div>
+
+                        <div>
+
+                            <strong>Fatimah A.</strong>
+
+                            <span>Mahasiswi, Yogyakarta</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="testi-card" id="testi-2">
+
+                    <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+
+                    <p>"Laporannya transparan abis! Gue jadi tau duit zakat gue disalurin ke siapa aja. No trust issue lagi deh sama amil 💚"</p>
+
+                    <div class="testi-author">
+
+                        <div class="testi-avatar">R</div>
+
+                        <div>
+
+                            <strong>Rizky M.</strong>
+
+                            <span>Software Engineer, Jakarta</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="testi-card" id="testi-3">
+
+                    <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+
+                    <p>"Algoritmanya ngebantu banget ngitungin porto saham crypto gue buat zakat maal. Sat set banget langsung tau totalnya. Keren LAZ Harfa! 🔥"</p>
+
+                    <div class="testi-author">
+
+                        <div class="testi-avatar">S</div>
+
+                        <div>
+
+                            <strong>Sarah N.</strong>
+
+                            <span>Wirausaha, Bandung</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- â”€â”€ SHARE SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+
+    <section class="section share-section" id="ajak-teman">
+
+        <div class="container">
+
+            <div class="share-box">
+
+                <div class="share-content">
+
+                    <h2>Spill The Kebaikan Ke Circle Lo 🤝</h2>
+
+                    <p>Satu kali lu nge-share link ini, bisa jadi jalan hidayah buat mutualan lo</p>
+
+                    <div class="share-buttons">
+
+                        <button class="share-btn share-wa" id="share-wa">
+
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+
+                                <path
+
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+
+                                <path
+
+                                    d="M12 0C5.373 0 0 5.373 0 12c0 2.121.554 4.109 1.523 5.834L0 24l6.335-1.524A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.65-.52-5.15-1.42l-.37-.22-3.76.905.92-3.67-.24-.38A9.958 9.958 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+
+                            </svg>
+
+                            WhatsApp
+
+                        </button>
+
+                        <button class="share-btn share-tg" id="share-tg">
+
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+
+                                <path
+
+                                    d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.269c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.952z" />
+
+                            </svg>
+
+                            Telegram
+
+                        </button>
+
+                        <button class="share-btn share-link" id="share-link">
+
+                            🔗 Copy Link
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="share-visual">
+
+                    <div class="share-card-preview" id="share-card-preview">
+
+                        <div class="preview-badge">LAZ Harfa 🌙</div>
+
+                        <div class="preview-title">Zakat Sat Set! 🚀</div>
+
+                        <div class="preview-sub">No Ribet · 100% Transparan · Bisa QRIS</div>
+
+                        <div class="preview-link">lazharfa.id/zakat</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-top">
+
+                <div class="footer-brand">
+
+                    <span class="logo-icon">🌙</span>
+
+                    <span class="logo-text">LAZ <strong>Harfa</strong></span>
+
+                </div>
+
+                <p>Lembaga Amil Zakat yang Amanah, Transparan, dan Berdampak.</p>
+
+            </div>
+
+            <div class="footer-links">
+
+                <a href="#kalkulator">Hitung Zakat</a>
+
+                <a href="#program">Program</a>
+
+                <a href="#cara-kerja">Cara Kerja</a>
+
+                <a href="https://t.me/lazharfa_tele_bot?start=BNTN27" target="_blank">Telegram Bot</a>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <span>© 2026 LAZ Harfa · Terdaftar BAZNAS</span>
+
+                <span>Dibuat dengan 💚 untuk umat</span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- â”€â”€ FLOATING CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+
+    <div class="floating-cta hidden" id="floating-cta">
+
+        <a href="https://t.me/lazharfa_tele_bot?start=BNTN27" target="_blank" id="floating-cta-btn">
+
+            💚 Bayar Zakat via Bot
+
+        </a>
+
+    </div>
+
+
+
+    <!-- â”€â”€ TOAST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+
+    <div class="toast hidden" id="toast">Link berhasil disalin! 🎉</div>
+
+
+
+    <script src="app.js"></script>
+
+</body>
+
+
+
+</html>
