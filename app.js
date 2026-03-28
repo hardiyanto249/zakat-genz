@@ -10,7 +10,7 @@ const NISAB_PENGHASILAN_BULANAN = 7_900_000;   // ~85gr emas / 12 bulan
 const NISAB_MAAL_TAHUNAN = 94_800_000;  // 85gr emas
 const NISAB_FITRAH_PER_JIWA = 45_000;  // LAZ Harfa 2026
 const ZAKAT_RATE = 0.025;        // 2.5%
-const BOT_URL = 'https://t.me/lazharfa_tele_bot?start=BNTN27';
+const BOT_URL = 'https://t.me/lazharfa_tele_bot?start=DONASI_BNTN27';
 const SHARE_URL = window.location.href;
 const SHARE_TEXT = '🌙 Hitung zakat kamu gratis, langsung bisa bayar via HP!\n\nLAZ Harfa — Amanah & Transparan\n👉 ';
 
@@ -404,7 +404,7 @@ document.querySelectorAll('.quick-btn').forEach(btn => {
 
     // Konfirmasi & arahkan ke bot dengan pesan
     const msg = encodeURIComponent(`SEDEKAH_${amtNum}`);
-    const botUrl = `https://t.me/harta_infaq_z_bot?start=DONASI_BNTN27`;
+    const botUrl = `https://t.me/lazharfa_tele_bot?start=DONASI_BNTN27`;
 
     // Show mini confirmation
     showToast(` Rp ${amtNum.toLocaleString('id-ID')} ${impact}  Buka bot untuk konfirmasi!`, 3000);
@@ -417,7 +417,7 @@ document.querySelectorAll('.quick-btn').forEach(btn => {
 });
 
 $('quick-custom')?.addEventListener('click', () => {
-  window.open('https://t.me/harta_infaq_z_bot?start=DONASI_BNTN27', '_blank');
+  window.open('https://t.me/lazharfa_tele_bot?start=DONASI_BNTN27', '_blank');
   trackAction('quick_custom');
 });
 
