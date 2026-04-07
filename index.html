@@ -10,17 +10,17 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Zakat Sat Set — LAZ Harfa | Solusi Buat Kaum Rebahan</title>
+    <title>Kuy Zakat — Hitung Zakat Sat Set | LAZ Harfa</title>
 
     <meta name="description"
 
-        content="Kalkulator zakat paling sat set. Ngitung 2 menit, bayar pake QRIS/GoPay. Zakat itu wajib, ngitungnya cukup rebahan aja. ✨" />
+        content="Kalkulator zakat paling sat set. Ngitung 2 menit, bayar via Telegram Bot. Zakat itu wajib, ngitungnya cukup rebahan aja. ✨" />
 
-    <meta property="og:title" content="Zakat Sat Set Sekarang — LAZ Harfa" />
+    <meta property="og:title" content="Kuy Zakat — Hitung Zakat Sat Set Pas Rebahan ✨" />
 
-    <meta property="og:description" content="Kalkulator zakat otomatis. Gratis. 2 menit. Tinggal scan QRIS." />
+    <meta property="og:description" content="Kalkulator zakat otomatis. Gratis. 2 menit. Langsung via Bot Telegram." />
 
-    <meta property="og:image" content="https://placehold.co/1200x630/1a1a2e/A78BFA?text=LAZ+HARFA+%F0%9F%8C9" />
+    <meta property="og:image" content="kuy_zakat_share_card.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 
@@ -48,8 +48,15 @@
 
                 <span class="logo-icon">🌙</span>
 
-                <span class="logo-text">LAZ <strong>Harfa</strong></span>
-
+                <span class="logo-text">Kuy <span class="gradient-text">Zakat</span></span>
+                <div id="streak-badge" class="streak-badge">
+                    <div class="streak-item fire">
+                        <span id="streak-fire">🔥</span> <span id="streak-count">0</span>
+                    </div>
+                    <div class="streak-item star-done" id="star-done" style="display: none;">
+                        <span class="icon">🌟</span> <span>Gue sudah sedekah hari ini</span>
+                    </div>
+                </div>
             </div>
 
             <a href="https://t.me/lazharfa_tele_bot?start=DONASI_BNTN27" target="_blank" class="btn btn-sm btn-outline"
@@ -66,7 +73,7 @@
 
 
 
-    <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 
     <section class="hero" id="hero">
 
@@ -84,7 +91,7 @@
                 Emang zakat <span class="gradient-text">cuma pas puasa</span> doang? 🤔
             </h1>
             <p class="hero-sub">
-                Faktanya, <strong>Zakat Penghasilan & Maal</strong> wajib dikeluarin pas lo udah gajian/punya aset. Cek nominal lo dalam <strong>2 menit</strong>. Langsung scan QRIS, 100% transparan, Nggak pake ribet!
+                Faktanya, <strong>Zakat Penghasilan & Maal</strong> wajib dikeluarin pas lo udah gajian/punya aset. Cek nominal lo dalam <strong>2 menit</strong>. Langsung via Bot, 100% transparan, Nggak pake ribet!
             </p>
             <div class="hero-cta-group">
                 <a href="#kalkulator" class="btn btn-primary btn-lg" id="hero-cta-calc">
@@ -106,13 +113,13 @@
             <span>🔒 100% Tersalurkan (No Potongan Aneh-Aneh)</span>
             <span>📊 Laporan Super Transparan</span>
             <span>⚡ Sat Set Cuma 2 Menit</span>
-            <span>📱 Support QRIS, GoPay, OVO</span>
+            <span>📸 Support Bayar via QRIS & Bot</span>
             <!-- duplicate for infinite scroll -->
             <span>✅ Terverifikasi BAZNAS</span>
             <span>🔒 100% Tersalurkan (No Potongan Aneh-Aneh)</span>
             <span>📊 Laporan Super Transparan</span>
             <span>⚡ Sat Set Cuma 2 Menit</span>
-            <span>📱 Support QRIS, GoPay, OVO</span>
+            <span>📸 Support Bayar via QRIS & Bot</span>
         </div>
     </div>
 
@@ -120,7 +127,7 @@
     <section class="section" id="kalkulator">
         <div class="container">
             <div class="section-header">
-                <h2>Kalkulator Zakat <span class="gradient-text">Paling Sat Set</span> ⚡</h2>
+                <h2>Kuy Zakat <span class="gradient-text">Kalkulator</span> ⚡</h2>
                 <p>Input gaji/aset kamu di bawah — algoritma kami yang ngitungin semuanya</p>
             </div>
 
@@ -239,6 +246,7 @@
                         class="btn btn-primary btn-full" id="bayar-sekarang">
                         💚 Bayar Zakat Sekarang via Bot
                     </a>
+                    <p class="result-note">💡 Kamu akan diarahkan ke Bot Telegram. Harap pilih menu <strong>Zakat Maal</strong> untuk melanjutkan pembayaran.</p>
                     <button class="btn btn-outline btn-full" id="share-result">
                         📤 Share Hasil ke Teman
                     </button>
@@ -276,7 +284,7 @@
 
                 <h2>Checkout <span class="gradient-text">Pahala</span> Sekarang</h2>
 
-                <p>Pilih nominalnya, scan, beres. Semudah checkout keranjang oren! 🛍️</p>
+                <p>Pilih nominalnya, aman, beres. Semudah checkout keranjang oren! 🛍️</p>
 
             </div>
 
@@ -296,7 +304,7 @@
 
                     <button class="mood-chip" data-mood="healing" id="mood-healing">Lagi Healing 🌿</button>
 
-                    <button class="mood-chip" data-mood="syukur" id="mood-syukur">Rasa Syukur 🙏</button>
+                    <button class="mood-chip" data-mood="syukur" id="mood-syukur">Rasa Syukur 🙏 </button>
 
                     <button class="mood-chip" data-mood="tantangan" id="mood-tantangan">Ikut Challenge 🔥</button>
 
@@ -372,23 +380,18 @@
 
                 </div>
 
-                <div class="quick-card quick-custom" data-amount="0" data-mood="all">
-
+                <div class="quick-card quick-custom" data-mood="all">
                     <div class="quick-amount">Nominal Bebas</div>
-
                     <div class="quick-impact">✨ Sesuai kemampuan kamu</div>
-
                     <div class="quick-freq">tidak ada yang terlalu kecil</div>
-
-                    <button class="btn btn-outline quick-btn" id="quick-custom">Pilih Nominal →</button>
-
+                    <a href="#impact-viz" class="btn btn-outline quick-btn btn-smooth-scroll" id="quick-custom">Pilih Nominal →</a>
                 </div>
 
             </div>
 
 
 
-            <p class="quick-note">💳 Transfer via QRIS · BSI · BCA · Mandiri · GoPay · OVO</p>
+            <p class="quick-note">🚀 Donasi aman & cepat via Bot Telegram</p>
 
         </div>
 
@@ -599,16 +602,13 @@
                 <div class="impact-cards-row" id="impact-cards-row">
 
                     <!-- filled by JS -->
-
                 </div>
 
 
 
-                <a href="https://t.me/lazharfa_tele_bot?start=DONASI_BNTN27" target="_blank"
+                <a href="javascript:void(0)" class="btn btn-primary btn-lg impact-cta" id="impact-cta-btn">
 
-                    class="btn btn-primary btn-lg impact-cta" id="impact-cta-btn">
-
-                    💚 Bayar Infak / Sedekah via Bot
+                    💚 Bayar via QRIS Sat Set
 
                 </a>
 
@@ -748,6 +748,7 @@
 
             <div class="steps-grid">
 
+
                 <div class="step-card" id="step-1">
 
                     <div class="step-num">01</div>
@@ -784,7 +785,7 @@
 
                     <h3>Scan QRIS & Selesai</h3>
 
-                    <p>Bisa pake GoPay, OVO, m-Banking. Laporan langsung dikirim ke chat saat itu juga.</p>
+                    <p>Instruksi pembayaran lengkap dikirim ke chat saat itu juga. Aman & amanah!</p>
 
                 </div>
 
@@ -826,7 +827,7 @@
 
                 <div class="testi-card" id="testi-1">
 
-                    <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                    <div class="testi-stars">⭐ ⭐ ⭐ ⭐ ⭐ </div>
 
                     <p>"Sumpah ini nge-bantu banget buat kaum rebahan! Dulu mikir zakat itu ribet, ternyata pake bot ini 2 menit kelar. Pake QRIS pula! 🙏Œ"</p>
 
@@ -848,7 +849,7 @@
 
                 <div class="testi-card" id="testi-2">
 
-                    <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                    <div class="testi-stars">⭐ ⭐ ⭐ ⭐ ⭐ </div>
 
                     <p>"Laporannya transparan abis! Gue jadi tau duit zakat gue disalurin ke siapa aja. No trust issue lagi deh sama amil 💚"</p>
 
@@ -870,7 +871,7 @@
 
                 <div class="testi-card" id="testi-3">
 
-                    <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                    <div class="testi-stars">⭐ ⭐ ⭐ ⭐ ⭐ </div>
 
                     <p>"Algoritmanya ngebantu banget ngitungin porto saham crypto gue buat zakat maal. Sat set banget langsung tau totalnya. Keren LAZ Harfa! 🔥"</p>
 
@@ -1044,10 +1045,58 @@
 
     <div class="toast hidden" id="toast">Link berhasil disalin! 🎉</div>
 
+    <!-- STREAK MODAL -->
+    <div id="streak-modal" class="modal">
+        <div class="modal-content celebration">
+            <span class="close-modal" id="close-streak">&times;</span>
+            <h2 class="milestone-title">🔥 <span class="gradient-text">Kindness Streak!</span> 🔥</h2>
+            <p><strong>CONGRATS!</strong> Kamu sudah melakukan kebaikan selama <span id="milestone-days">7</span> hari berturut-turut!</p>
+            <div class="streak-card-preview">
+                <img src="kuy_zakat_share_card.png" alt="Streak Card" class="img-fluid" />
+            </div>
+            <p class="share-prompt">Pamerin kebaikan lo & ajak circle lo buat ikutan challenge ini!</p>
+            <button class="btn btn-primary btn-block" id="share-streak-btn">Share My Streak ✨</button>
+        </div>
+    </div>
 
+    <!-- QRIS MODAL -->
+    <div id="qris-modal" class="modal">
+        <div class="modal-content qris-content">
+            <span class="close-modal" id="close-qris">&times;</span>
+            <div class="qris-header">
+                <span class="qris-icon">📸</span>
+                <h2 class="qris-title">Scan <span class="gradient-text">QRIS Harfa</span></h2>
+                <p>Nominal: <strong id="qris-amount-display">Rp 0</strong></p>
+            </div>
+            <div class="qris-image-container">
+                <img src="QRIS-Harfa.jpg" alt="QRIS LAZ Harfa" class="qris-img" />
+            </div>
+            <div class="qris-steps">
+                <p>1. 📸 Screenshot / Save QR di atas</p>
+                <p>2. 📱 Buka GoPay / Dana / OVO / mBanking</p>
+                <p>3. 📤 Upload / Scan QR-nya & Bayar</p>
+            </div>
+            
+            <div id="qris-progress-container" class="qris-progress-box">
+                <div class="qris-progress-text">
+                   <span class="pulse-dot"></span> 📸 Menunggu scan dilakukan... (<span id="qris-timer-sec">20</span>s)
+                </div>
+                <div class="qris-progress-track">
+                    <div id="qris-progress-fill" class="qris-progress-fill"></div>
+                </div>
+                <p class="qris-progress-hint">Harap selesaikan pembayaran di HP Bapak</p>
+            </div>
 
+            <button id="qris-done-btn" style="display: none;">Sudah Bayar ✅</button>
+            <p class="qris-footer">Dana kamu 100% amanah & langsung disalurkan ✨</p>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <!-- FIREBASE SDK (For Real-time Ticker) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <script src="app.js"></script>
-
 </body>
 
 

@@ -5,14 +5,44 @@
 
 'use strict';
 
+// ── FIREBASE CONFIG (ACTIVE) ──────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyCgQfAAMy_tcmbiKF6FHWbRIjtRN-5CnsI",
+  authDomain: "kuy-zakat.firebaseapp.com",
+  databaseURL: "https://kuy-zakat-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "kuy-zakat",
+  storageBucket: "kuy-zakat.firebasestorage.app",
+  messagingSenderId: "615145899574",
+  appId: "1:615145899574:web:98a808517b92bcd605ba97",
+  measurementId: "G-0YD3ZV4J4Z"
+};
+
+// Initialize Firebase
+let firebaseApp, db;
+try {
+  if (typeof firebase !== 'undefined' && firebaseConfig.apiKey) {
+    firebaseApp = firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+    console.log('✅ Firebase LIVE: Database connected for Real-time Ticker');
+  }
+} catch (e) { console.error('Firebase failing:', e); }
+
 // ── CONSTANTS ─────────────────────────────────────────────────
 const NISAB_PENGHASILAN_BULANAN = 7_900_000;   // ~85gr emas / 12 bulan
 const NISAB_MAAL_TAHUNAN = 94_800_000;  // 85gr emas
 const NISAB_FITRAH_PER_JIWA = 45_000;  // LAZ Harfa 2026
 const ZAKAT_RATE = 0.025;        // 2.5%
 const BOT_URL = 'https://t.me/lazharfa_tele_bot?start=DONASI_BNTN27';
-const SHARE_URL = window.location.href;
-const SHARE_TEXT = '🌙 Hitung zakat kamu gratis, langsung bisa bayar via HP!\n\nLAZ Harfa — Amanah & Transparan\n👉 ';
+const SHARE_URL = window.location.origin + window.location.pathname;
+const USER_ID = (function() {
+  let id = localStorage.getItem('k_z_uid');
+  if (!id) {
+    id = 'U' + Math.random().toString(36).substring(2, 7).toUpperCase();
+    localStorage.setItem('k_z_uid', id);
+  }
+  return id;
+})();
+const SHARE_TEXT = `🌙 Kuy Zakat! Kalkulator zakat paling sat set buat kaum rebahan.\n\nIkuti challenge-nya Bareng gue: `;
 
 // ── HELPERS ───────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
@@ -197,7 +227,7 @@ $('hitung-fitrah')?.addEventListener('click', () => {
 // ── SHARE RESULT ──────────────────────────────────────────────
 $('share-result')?.addEventListener('click', () => {
   const amount = $('result-amount')?.textContent || '';
-  const text = `🎉 Baru hitung zakat pakai LAZ Harfa Bot!\nZakatku: ${amount}\n\nKamu juga bisa hitung di sini: ${SHARE_URL}`;
+  const text = `🎉 Baru hitung zakat pakai Kuy Zakat (LAZ Harfa)!\nZakatku: ${amount}\n\nKuy, hitung punya lo di sini: ${SHARE_URL}?ref=${USER_ID}`;
   shareContent(text);
   trackAction('share_result', { amount });
 });
@@ -229,7 +259,7 @@ $('share-link')?.addEventListener('click', async () => {
 function shareContent(text) {
   if (navigator.share) {
     navigator.share({
-      title: 'LAZ Harfa — Kalkulator Zakat',
+      title: 'Kuy Zakat — Kalkulator Sat Set',
       text,
       url: SHARE_URL,
     }).catch(() => { });
@@ -248,19 +278,31 @@ function showToast(msg, duration = 3000) {
 
 // ── UTM TRACKING ──────────────────────────────────────────────
 function trackAction(event, data = {}) {
-  // Simpan di localStorage untuk analitik sederhana
+  const time = new Date().toISOString();
+  
+  // 1. Simpan di localStorage (Local)
   const key = 'harfa_leads';
   const existing = JSON.parse(localStorage.getItem(key) || '[]');
-  existing.push({
-    event,
-    data,
-    timestamp: new Date().toISOString(),
-    referrer: document.referrer,
-    utm: Object.fromEntries(new URLSearchParams(window.location.search)),
-  });
-  localStorage.setItem(key, JSON.stringify(existing.slice(-50))); // simpan 50 terbaru
+  existing.push({ event, data, timestamp: time });
+  localStorage.setItem(key, JSON.stringify(existing.slice(-20)));
 
-  // Kirim ke analytics jika ada (Google Analytics / Telegram webhook)
+  // 2. Kirim ke Firebase (Cloud Analytics - Via REST API for max bypass)
+  const dbUrl = "https://kuy-zakat-default-rtdb.asia-southeast1.firebasedatabase.app/recent_donations.json";
+  try {
+      fetch(dbUrl, {
+          method: 'POST',
+          body: JSON.stringify({
+              type: 'event', // Pembeda untuk Analytics
+              event,
+              data,
+              timestamp: time,
+              ua: navigator.userAgent.substring(0, 50),
+              ref: document.referrer || 'direct'
+          })
+      });
+  } catch(e) { console.warn('Analytics push failed:', e); }
+
+  // 3. Google Analytics (If loaded)
   if (typeof gtag !== 'undefined') {
     gtag('event', event, { ...data });
   }
@@ -306,65 +348,110 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 });
 
 // ── INIT ──────────────────────────────────────────────────────
-console.log('%c🌙 LAZ Harfa Landing Page Loaded', 'color: #8B5CF6; font-weight: bold; font-size: 14px;');
+console.log('%c🌙 Kuy Zakat Landing Page Loaded', 'color: #8B5CF6; font-weight: bold; font-size: 14px;');
 trackAction('page_view');
 
 /* 
    GEN Z FEATURES  Interactive Logic
     */
 
-//  LIVE TICKER 
+// ── LIVE TICKER (REAL-TIME CLOUD ENABLED) ──────────────────────
+window.pushTickerItem = null;
+
 (function initTicker() {
-  const messages = [
-    'Andi dari Jakarta baru saja sedekah Rp 25.000 ',
-    'Siti dari Surabaya membayar Zakat Penghasilan ',
-    'Fajar dari Bandung baru saja sedekah Rp 10.000 ',
-    'Rahma dari Medan membayar Zakat Penghasilan ',
-    'Dimas dari Yogya baru saja sedekah Rp 50.000 ',
-    'Laila dari Makassar donasi Rp 15.000 ',
-    'Hasan dari Semarang bayar Zakat Maal ',
-    'Nisa dari Malang sedekah Rp 5.000 ',
-    'Yusuf dari Depok sedekah Rp 100.000 ',
-    'Zahra dari Bogor ikutan Sedekah Subuh ',
-  ];
+  const names = ['Jakarta', 'Surabaya', 'Bandung', 'Medan', 'Yogya', 'Makassar', 'Semarang', 'Malang', 'Depok', 'Bogor'];
+  const amounts = [5000, 10000, 15000, 25000, 50000, 100000];
+  let count = parseInt(localStorage.getItem('harfa_ticker_count') || '148');
 
-  const names = ['Jakarta', 'Surabaya', 'Bandung', 'Medan', 'Yogya', 'Makassar', 'Semarang', 'Malang', 'Depok', 'Bogor', 'Palembang', 'Aceh', 'Lombok', 'Balikpapan'];
-  const amounts = [5000, 10000, 15000, 25000, 50000];
-  let idx = 0;
-  let count = parseInt(localStorage.getItem('harfa_ticker_count') || '47');
-
-  function nextTick() {
+  function updateTickerDisplay(msg, isHighlight = false) {
     const track = $('ticker-track');
     if (!track) return;
-
-    // Random occasional new message
-    if (Math.random() < 0.4) {
-      const city = names[Math.floor(Math.random() * names.length)];
-      const amt = amounts[Math.floor(Math.random() * amounts.length)];
-      messages.push(`Seseorang dari ${city} baru saja sedekah Rp ${amt.toLocaleString('id-ID')} `);
-      count++;
-      const counterEl = $('ticker-today');
-      if (counterEl) counterEl.textContent = count + ' sedekah hari ini';
-      localStorage.setItem('harfa_ticker_count', String(count));
-    }
-
-    // Swap active item
-    const items = track.querySelectorAll('.ticker-item');
-    items.forEach(i => i.classList.remove('active'));
-
-    // Create new item if needed
-    const newItem = document.createElement('div');
-    newItem.className = 'ticker-item';
-    newItem.textContent = messages[idx % messages.length];
-    track.innerHTML = '';
-    track.appendChild(newItem);
-    setTimeout(() => newItem.classList.add('active'), 50);
-
-    idx++;
+    track.innerHTML = `<div class="ticker-item active ${isHighlight ? 'highlight' : ''}">${msg}</div>`;
   }
 
-  nextTick();
-  setInterval(nextTick, 4000);
+  // 1. DENGARKAN DATA REAL DARI FIREBASE (Real-time antar User)
+  if (db) {
+    const donationsRef = db.ref('recent_donations');
+    donationsRef.limitToLast(1).on('child_added', (snapshot) => {
+      const data = snapshot.val();
+      const timeElapsed = Date.now() - data.timestamp;
+      
+      // Jika data baru (bukan data lama saat web baru buka)
+      if (timeElapsed < 5000) {
+        // HANYA TAMPILKAN JIKA INI DONASI ASLI (BUKAN LOG ANALYTICS)
+        if (data.type === 'event' && !data.amount) return;
+
+        let msg = data.msg;
+        if (!msg) {
+          msg = `🌟 <strong>LIVE:</strong> Donatur dari ${data.city} baru saja sedekah Rp ${data.amount.toLocaleString('id-ID')} via QRIS! 📸`;
+        } else {
+          msg = msg.replace('GUE:', 'LIVE:');
+        }
+        
+        updateTickerDisplay(msg, true);
+        
+        // Update Counter (Real)
+        count++;
+        localStorage.setItem('harfa_ticker_count', String(count));
+        const counterEl = $('ticker-today');
+        if (counterEl) counterEl.textContent = count + ' sedekah hari ini';
+      }
+    });
+  }
+
+  // 2. SIMULASI PINTAR (Jika sedang sepi atau Firebase belum siap)
+  const messages = [
+    '🔥 BARU: Sekarang Sedekah Makin Sat Set via QRIS! ✅ ',
+    '📸 Info: Gak pake ribet, scan QRIS untuk bantu sesama!',
+    '🚨 Update: Sedekah kini makin mudah pakai QRIS Harfa!',
+  ];
+
+  let simIdx = 0;
+  function nextSimulationTick() {
+    let msg = '';
+    if (simIdx % 3 === 0) {
+      msg = messages[0];
+    } else {
+      const city = names[Math.floor(Math.random() * names.length)];
+      const amt = amounts[Math.floor(Math.random() * amounts.length)];
+      const method = Math.random() > 0.4 ? 'via QRIS 📸' : 'via Bot 🔥';
+      msg = `Donatur dari ${city} baru saja sedekah Rp ${amt.toLocaleString('id-ID')} ${method}`;
+    }
+    updateTickerDisplay(msg);
+    simIdx++;
+  }
+
+  // Hook untuk kirim data ke Firebase
+  window.pushTickerItem = function(amount, customMessage = null) {
+    const cityName = names[Math.floor(Math.random() * names.length)];
+    const timeNow = Date.now();
+    
+    // Kirim ke Firebase (Gunakan Jalur yang sudah terbukti terbuka: recent_donations)
+    try {
+      if (db) {
+        db.ref('recent_donations').push({
+          type: 'donation', // Pembeda untuk Ticker
+          amount,
+          city: cityName,
+          timestamp: timeNow,
+          msg: customMessage
+        });
+      }
+    } catch (e) { console.warn('Cloud update delayed:', e); }
+
+    // Tampilkan di layar bapak sendiri langsung
+    const finalMsg = customMessage || `🌟 <strong>GUE:</strong> Baru saja sedekah Rp ${amount.toLocaleString('id-ID')} via QRIS Sat Set! 🚀`;
+    updateTickerDisplay(finalMsg, true);
+    
+    // PAUSE SIMULASI
+    clearInterval(tickerInterval);
+    setTimeout(() => {
+      tickerInterval = setInterval(nextSimulationTick, 4000);
+    }, 10000); // Tampilkan pesan selama 10 detik
+  };
+
+  let tickerInterval = setInterval(nextSimulationTick, 4000);
+  nextSimulationTick();
 })();
 
 //  MOOD FILTER 
@@ -386,40 +473,191 @@ document.querySelectorAll('.mood-chip').forEach(chip => {
   });
 });
 
-//  QUICK SEDEKAH BUTTONS 
-document.querySelectorAll('.quick-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const amount = btn.getAttribute('data-amount') || '0';
-    const card = btn.closest('.quick-card');
-    const impact = card?.querySelector('.quick-impact')?.textContent || '';
-    const amtNum = parseInt(amount);
+// ── QRIS MODAL SYSTEM ──────────────────────────────────────────
+let qrisTimerInterval = null;
+let qrisTimeLeft = 20;
 
-    // Animasi klik
-    btn.textContent = ' Oke!';
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = 'Sedekah ';
-      btn.disabled = false;
-    }, 2000);
+function openQrisModal(amount) {
+  const modal = $('qris-modal');
+  const amountDisplay = $('qris-amount-display');
+  const doneBtn = $('qris-done-btn');
+  const progressBox = $('qris-progress-container');
+  const progressFill = $('qris-progress-fill');
+  const timerSec = $('qris-timer-sec');
 
-    // Konfirmasi & arahkan ke bot dengan pesan
-    const msg = encodeURIComponent(`SEDEKAH_${amtNum}`);
-    const botUrl = `https://t.me/lazharfa_tele_bot?start=DONASI_BNTN27`;
+  if (modal && amountDisplay) {
+    amountDisplay.textContent = formatRp(amount);
+    modal.classList.add('active');
+    modal.style.display = 'flex';
+    
+    // Reset UI State
+    if (doneBtn) {
+        doneBtn.style.display = 'none';
+        doneBtn.classList.remove('fade-in');
+    }
+    if (progressBox) progressBox.style.display = 'block';
+    if (progressFill) progressFill.style.width = '0%';
+    if (timerSec) timerSec.textContent = '20';
 
-    // Show mini confirmation
-    showToast(` Rp ${amtNum.toLocaleString('id-ID')} ${impact}  Buka bot untuk konfirmasi!`, 3000);
+    // CLEAR OLD TIMER
+    if (qrisTimerInterval) clearInterval(qrisTimerInterval);
+    qrisTimeLeft = 20;
 
-    setTimeout(() => {
-      window.open(botUrl, '_blank');
-      trackAction('quick_sedekah', { amount: amtNum, impact });
-    }, 500);
-  });
-});
+    // JALANKAN TIMER LUXURY
+    qrisTimerInterval = setInterval(() => {
+        qrisTimeLeft--;
+        if (timerSec) timerSec.textContent = qrisTimeLeft;
+        
+        const percent = ((20 - qrisTimeLeft) / 20) * 100;
+        if (progressFill) progressFill.style.width = percent + '%';
 
-$('quick-custom')?.addEventListener('click', () => {
-  window.open('https://t.me/lazharfa_tele_bot?start=DONASI_BNTN27', '_blank');
-  trackAction('quick_custom');
-});
+        if (qrisTimeLeft <= 0) {
+            clearInterval(qrisTimerInterval);
+            if (progressBox) progressBox.style.display = 'none';
+            if (doneBtn) {
+                doneBtn.classList.add('fade-in');
+            }
+        }
+    }, 1000);
+
+    trackAction('open_qris', { amount });
+  }
+}
+
+function handleQrisSuccess() {
+    const amtRaw = $('qris-amount-display')?.textContent.replace(/\D/g, '') || '0';
+    const amount = parseInt(amtRaw) || 0;
+    
+    showToast('Alhamdulillah, sedekahmu sedang kami proses! 💚');
+    updateStreak();
+    if (window.pushTickerItem) window.pushTickerItem(amount);
+    trackAction('qris_success_auto', { amount });
+}
+
+function closeQrisModal() {
+    // Jika user tutup modal setelah >15 detik (sudah scan), asumsikan SUKSES
+    if (qrisTimeLeft <= 5 && qrisTimerInterval) {
+        handleQrisSuccess();
+    }
+    
+    if (qrisTimerInterval) clearInterval(qrisTimerInterval);
+    $('qris-modal')?.classList.remove('active');
+    if ($('qris-modal')) $('qris-modal').style.display = 'none';
+}
+
+// Global Delegation for Sedekah & QRIS
+document.body.addEventListener('click', (e) => {
+    // Cari target terdekat yang memiliki class/ID yang kita cari
+    const quickBtn = e.target.closest('.quick-btn');
+    const impactBtn = e.target.closest('#impact-cta-btn');
+    const payBtn = e.target.closest('#bayar-sekarang');
+    
+    // 1. Quick Sedekah Buttons
+    if (quickBtn) {
+        // Jika ini tombol "Nominal Bebas" (link jangkar), jangan buka modal
+        if (quickBtn.classList.contains('btn-smooth-scroll')) {
+            const targetSection = $('impact-viz');
+            const sliderBox = document.querySelector('.impact-slider-box');
+            
+            if (targetSection) {
+                targetSection.classList.add('glow-focus');
+                if (sliderBox) sliderBox.classList.add('highlight');
+                
+                setTimeout(() => {
+                    targetSection.classList.remove('glow-focus');
+                    if (sliderBox) sliderBox.classList.remove('highlight');
+                }, 2500);
+            }
+            return; // Biarkan browser melakukan smooth scroll bawaan
+        }
+
+        const amount = quickBtn.getAttribute('data-amount') || '0';
+        const amtNum = parseInt(amount);
+        if (amtNum > 0) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            openQrisModal(amtNum);
+            return;
+        }
+    }
+
+    // 2. Impact CTA (from slider)
+    if (impactBtn) {
+        const amount = parseInt($('impact-slider')?.value) || 0;
+        if (amount > 0) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            openQrisModal(amount);
+            return;
+        }
+    }
+
+    // 3. Calculator result / Custom Pay Button
+    if (payBtn) {
+        const text = payBtn.textContent.toLowerCase();
+        // Cek apakah tombol ini adalah untuk zakat (kalkulator)
+        if (text.includes('zakat')) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            
+            const amtRaw = $('result-amount')?.textContent.replace(/\D/g, '') || '0';
+            const amount = parseInt(amtRaw) || 0;
+            
+            // Broadcast ke Live Ticker (Motivasi Gen-Z)
+            if (window.pushTickerItem) {
+                const zakatMsg = `🕌 GUE: Sedang memproses Zakat Maal via Bot Telegram! ⚡`;
+                // Panggil fungsi ticker dengan pesan custom (jika didukung) atau gunakan default logic
+                window.pushTickerItem(amount, zakatMsg);
+            }
+            
+            // Nyalakan Bintang Emas
+            updateStreak();
+            
+            // Notifikasi Perayaan
+            showToast('Niat Zakatmu tercatat & disaksikan dunia! 🕌✨');
+            
+            // Jeda sebentar biar kelihatan keren, lalu pindah ke Telegram
+            setTimeout(() => {
+                window.open(payBtn.href, '_blank');
+            }, 1200);
+            return;
+        }
+
+        // Jalankan QRIS Sedekah untuk tombol non-zakat lainnya
+        const triggers = ['sedekah', 'infaq', 'donasi', 'bayar'];
+        const isMatch = triggers.some(t => text.includes(t));
+        if (isMatch) {
+            const amtRaw = $('result-amount')?.textContent.replace(/\D/g, '') || '0';
+            const amount = parseInt(amtRaw) || 0;
+            if (amount > 0) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                openQrisModal(amount);
+                return;
+            }
+        }
+    }
+
+    // Modal close triggers
+    if (e.target.id === 'close-qris' || e.target.id === 'qris-modal') {
+        closeQrisModal();
+    }
+    
+    const qrisBtn = e.target.closest('#qris-done-btn');
+    if (qrisBtn) {
+        const amtRaw = $('qris-amount-display')?.textContent.replace(/\D/g, '') || '0';
+        const amount = parseInt(amtRaw) || 0;
+        
+        closeQrisModal();
+        showToast('Alhamdulillah, sedekahmu sedang kami proses! 💚');
+        updateStreak();
+        
+        // PUSH KE TICKER (Real Data for this user)
+        if (window.pushTickerItem) window.pushTickerItem(amount);
+        
+        trackAction('qris_done', { amount });
+    }
+}, true); // Use capture phase
 
 //  STREAK TRACKER 
 (function initStreak() {
@@ -524,3 +762,97 @@ if (slider) {
 //  CTA NOTE update (hapus angka tidak update) 
 const ctaNote = document.querySelector('.cta-note');
 if (ctaNote) ctaNote.innerHTML = 'Proses <strong>2 menit</strong>  Langsung via Telegram  100% Tersalurkan ';
+
+// ── STREAK TRACKER SYSTEM (WITH OBFUSCATION) ─────────────────
+const STK_KEY = 'k_z_meta_v3';
+
+function getStkData() {
+  try {
+    const raw = localStorage.getItem(STK_KEY);
+    if (!raw) return { c: 0, d: null };
+    // Simple Decrypt (Base64)
+    const decoded = JSON.parse(atob(raw));
+    return decoded;
+  } catch (e) {
+    return { c: 0, d: null };
+  }
+}
+
+function setStkData(count, date) {
+  const data = { c: count, d: date };
+  const encoded = btoa(JSON.stringify(data));
+  localStorage.setItem(STK_KEY, encoded);
+}
+
+function initStreak() {
+  const data = getStkData();
+  const streakCountEl = $('streak-count');
+  const starDone = $('star-done');
+  const today = new Date().toISOString().split('T')[0];
+  
+  if (streakCountEl) streakCountEl.textContent = data.c || 0;
+  
+  // Tampilkan badge bintang jika sudah sedekah hari ini
+  if (starDone) {
+    if (data.d === today) {
+      starDone.style.display = 'flex';
+    } else {
+      starDone.style.display = 'none';
+    }
+  }
+}
+
+function updateStreak() {
+  const today = new Date().toISOString().split('T')[0];
+  const data = getStkData();
+
+  // Jika sudah sedekah hari ini, tetap panggil init agar badge menyala
+  if (data.d === today) {
+    initStreak();
+    return;
+  }
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+  let newCount = data.c || 0;
+  if (data.d === yesterdayStr) {
+    newCount++; // Streak berlanjut
+  } else {
+    newCount = 1; // Mulai baru atau reset
+  }
+
+  setStkData(newCount, today);
+  initStreak();
+  checkMilestone(newCount);
+}
+
+function checkMilestone(count) {
+  if (count === 3 || count === 7) {
+    const modal = $('streak-modal');
+    const daysEl = $('milestone-days');
+    if (modal && daysEl) {
+      daysEl.textContent = count;
+      modal.style.display = 'flex';
+    }
+  }
+}
+
+$('close-streak')?.addEventListener('click', () => {
+  $('streak-modal').style.display = 'none';
+});
+
+$('share-streak-btn')?.addEventListener('click', () => {
+  const data = getStkData();
+  const text = `🔥 Gue baru aja tembus ${data.c}-Day Kindness Streak di Kuy Zakat! ✨\n\nIkutan challenge-nya di sini: ${SHARE_URL}?ref=${USER_ID}`;
+  shareContent(text);
+});
+
+// Attach streak to all donation buttons
+document.querySelectorAll('a[href*="t.me/lazharfa_tele_bot"]').forEach(btn => {
+  btn.addEventListener('click', updateStreak);
+});
+
+initStreak();
+
