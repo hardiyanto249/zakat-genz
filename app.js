@@ -169,14 +169,14 @@ $('hitung-penghasilan')?.addEventListener('click', () => {
     $('result-desc').textContent =
       `Penghasilanmu ${formatRp(total)}/bulan belum mencapai nisab (${formatRp(NISAB_PENGHASILAN_BULANAN)}/bulan). ` +
       `Tapi kamu tetap bisa bersedekah melalui bot kami! 💚`;
-    $('bayar-sekarang').textContent = '🤲 Sedekah Sat Set via Bot →';
+    $('bayar-sekarang').innerHTML = '<strong>DONASI SEKARANG</strong>';
     $('bayar-qris-direct').style.display = 'block';
   } else {
     $('result-amount').textContent = formatRp(zakat) + ' / bulan';
     $('result-desc').textContent =
       `Dari penghasilan ${formatRp(total)}/bulan, zakatmu adalah 2.5% = ${formatRp(zakat)}/bulan ` +
       `atau ${formatRp(zakat * 12)}/tahun. Alhamdulillah! 🎉`;
-    $('bayar-sekarang').textContent = '💚 Bayar Zakat Sekarang via Bot';
+    $('bayar-sekarang').innerHTML = '<strong>BAYAR ZAKAT SEKARANG</strong>';
     $('bayar-qris-direct').style.display = 'block';
   }
 
@@ -201,13 +201,13 @@ $('hitung-maal')?.addEventListener('click', () => {
     $('result-desc').textContent =
       `Total hartamu ${formatRp(total)} belum mencapai nisab maal (${formatRp(NISAB_MAAL_TAHUNAN)}). ` +
       `Terus berusaha ya, dan jangan lupa infaq/sedekah! 💪`;
-    $('bayar-sekarang').textContent = '🤲 Sedekah Sat Set via Bot →';
+    $('bayar-sekarang').innerHTML = '<strong>DONASI SEKARANG</strong>';
   } else {
     $('result-amount').textContent = formatRp(zakat) + ' / tahun';
     $('result-desc').textContent =
       `Dari harta bersih ${formatRp(total)}, zakatmu adalah 2.5% = ${formatRp(zakat)}/tahun. ` +
       `Segera tunaikan ya, insyaAllah rezekimu semakin berkah! 🌟`;
-    $('bayar-sekarang').textContent = '💚 Bayar Zakat Maal via Bot';
+    $('bayar-sekarang').innerHTML = '<strong>BAYAR ZAKAT SEKARANG</strong>';
   }
 
   trackAction('hitung_maal', { total, zakat });
