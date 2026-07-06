@@ -28,7 +28,7 @@
 
         rel="stylesheet" />
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=1.0.2" />
 
 </head>
 
@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <a href="https://t.me/lazharfa_tele_bot?start=DONASI_BNTN27" target="_blank" class="btn btn-sm btn-outline"
+            <a href="https://lazharfa.org/campaign/zakat-harta-maal?ref=b9pqi" target="_blank" class="btn btn-sm btn-outline"
 
                 id="nav-cta">
 
@@ -242,12 +242,15 @@
                 </div>
                 <p class="result-desc" id="result-desc"></p>
                 <div class="result-actions">
-                    <a href="https://t.me/lazharfa_tele_bot?start=DONASI_BNTN27" target="_blank"
+                    <a href="https://lazharfa.org/campaign/zakat-harta-maal?ref=b9pqi" target="_blank"
                         class="btn btn-primary btn-full" id="bayar-sekarang">
-                        💚 Bayar Zakat Sekarang via Bot
+                        💚 Bayar Zakat Sekarang di LazHarfa
                     </a>
-                    <p class="result-note">💡 Kamu akan diarahkan ke Bot Telegram. Harap pilih menu <strong>Zakat Maal</strong> untuk melanjutkan pembayaran.</p>
-                    <button class="btn btn-outline btn-full" id="share-result">
+                    <button class="btn btn-outline btn-full" id="bayar-qris-direct">
+                        📸 Bayar Instan via QRIS (Gak Pake Bot)
+                    </button>
+                    <p class="result-note">💡 Kamu akan diarahkan ke halaman donasi LAZ Harfa. Pembayaran aman & referral BNTN27 otomatis terekam ✅</p>
+                    <button class="btn btn-ghost btn-full" id="share-result">
                         📤 Share Hasil ke Teman
                     </button>
                 </div>
@@ -628,100 +631,139 @@
 
             <div class="section-header">
 
-                <h2>Dana Zakatmu <span class="gradient-text">Untuk Apa?</span></h2>
+                <div class="section-tag">🌿 Verified & Transparan</div>
+                <h2>Pilih Program <span class="gradient-text">Kebaikanmu</span></h2>
 
-                <p>Pilih program yang kamu mau support — semua transparan & terverifikasi</p>
+                <p>Donasi langsung ke campaign LAZ Harfa — referral otomatis terekam ✅</p>
 
             </div>
 
-            <div class="program-grid">
+            <div class="program-grid" id="program-grid">
 
-                <div class="program-card" id="prog-beasiswa">
-
-                    <div class="program-emoji">🎓</div>
-
-                    <h3>Beasiswa Anak Yatim</h3>
-
-                    <p>Biaya sekolah & kebutuhan belajar untuk anak-anak kurang mampu</p>
-
+                <!-- Zakat -->
+                <div class="program-card" id="prog-maal">
+                    <div class="program-emoji">💰</div>
+                    <div class="program-badge">Zakat</div>
+                    <h3>Zakat Maal</h3>
+                    <p>Bersihkan 2.5% hartamu yang telah mencapai nisab & haul. Rp 379 jt+ terkumpul.</p>
                     <div class="program-progress">
-
-                        <div class="progress-bar">
-
-                            <div class="progress-fill" style="width: 73%"></div>
-
-                        </div>
-
-                        <span class="progress-label">73% terpenuhi</span>
-
+                        <div class="progress-bar"><div class="progress-fill" style="width: 78%"></div></div>
+                        <span class="progress-label">176+ donatur aktif</span>
                     </div>
-
+                    <a href="https://lazharfa.org/campaign/zakat-harta-maal?ref=b9pqi" target="_blank" class="btn btn-primary btn-full prog-btn">💚 Donasi Sekarang →</a>
                 </div>
 
-                <div class="program-card" id="prog-bencana">
+                <div class="program-card" id="prog-profesi">
+                    <div class="program-emoji">👔</div>
+                    <div class="program-badge">Zakat</div>
+                    <h3>Zakat Profesi</h3>
+                    <p>Zakat penghasilan 2.5% dari gaji/honor yang telah mencapai nisab. Rp 65 jt+ terkumpul.</p>
+                    <div class="program-progress">
+                        <div class="progress-bar"><div class="progress-fill" style="width: 55%"></div></div>
+                        <span class="progress-label">51+ donatur aktif</span>
+                    </div>
+                    <a href="https://lazharfa.org/campaign/zakat-profesi?ref=819ve" target="_blank" class="btn btn-primary btn-full prog-btn">💚 Donasi Sekarang →</a>
+                </div>
 
+                <!-- Sedekah Harian -->
+                <div class="program-card featured" id="prog-subuh">
+                    <div class="program-badge-popular">Trending 🔥</div>
+                    <div class="program-emoji">🌅</div>
+                    <div class="program-badge">Sedekah</div>
+                    <h3>Infak Sedekah Shubuh</h3>
+                    <p>Sedekah terbaik di waktu penuh keberkahan. Mulai dari Rp 10.000 saja!</p>
+                    <div class="program-progress">
+                        <div class="progress-bar"><div class="progress-fill" style="width: 88%"></div></div>
+                        <span class="progress-label">Aktif setiap hari</span>
+                    </div>
+                    <a href="https://lazharfa.org/campaign/sedekah-subuh?ref=6q11y" target="_blank" class="btn btn-primary btn-full prog-btn">💚 Donasi Sekarang →</a>
+                </div>
+
+                <!-- Kemanusiaan -->
+                <div class="program-card" id="prog-banjir">
                     <div class="program-emoji">🌊</div>
-
-                    <h3>Bencana Sumatra</h3>
-
-                    <p>Bantuan darurat & pemulihan untuk korban bencana alam Sumatra</p>
-
+                    <div class="program-badge">Darurat</div>
+                    <h3>Darurat Banjir Banten</h3>
+                    <p>Bantuan darurat & pemulihan untuk korban banjir di Banten. Bantu segera!</p>
                     <div class="program-progress">
-
-                        <div class="progress-bar">
-
-                            <div class="progress-fill" style="width: 45%"></div>
-
-                        </div>
-
-                        <span class="progress-label">45% terpenuhi</span>
-
+                        <div class="progress-bar"><div class="progress-fill" style="width: 12%"></div></div>
+                        <span class="progress-label">Masih butuh bantuan</span>
                     </div>
-
+                    <a href="https://lazharfa.org/campaign/darurat-banten-dikepung-banjir?ref=kx901" target="_blank" class="btn btn-primary btn-full prog-btn">💚 Bantu Sekarang →</a>
                 </div>
 
-                <div class="program-card" id="prog-kesehatan">
-
-                    <div class="program-emoji">🏥</div>
-
-                    <h3>Kesehatan Dhuafa</h3>
-
-                    <p>Akses layanan kesehatan gratis untuk keluarga tidak mampu</p>
-
+                <div class="program-card" id="prog-palestina">
+                    <div class="program-emoji">🇵🇸</div>
+                    <div class="program-badge">Kemanusiaan</div>
+                    <h3>Pulihkan Palestina</h3>
+                    <p>Bantuan kemanusiaan untuk saudara kita di Palestina. Rp 38 jt+ terkumpul.</p>
                     <div class="program-progress">
-
-                        <div class="progress-bar">
-
-                            <div class="progress-fill" style="width: 60%"></div>
-
-                        </div>
-
-                        <span class="progress-label">60% terpenuhi</span>
-
+                        <div class="progress-bar"><div class="progress-fill" style="width: 45%"></div></div>
+                        <span class="progress-label">131+ donatur</span>
                     </div>
-
+                    <a href="https://lazharfa.org/campaign/pulihkankembalipalestina?ref=5lbvu" target="_blank" class="btn btn-primary btn-full prog-btn">💚 Donasi Sekarang →</a>
                 </div>
 
-                <div class="program-card" id="prog-ekonomi">
-
-                    <div class="program-emoji">🌱</div>
-
-                    <h3>Pemberdayaan Ekonomi</h3>
-
-                    <p>Modal usaha & pelatihan untuk keluarga pra-sejahtera</p>
-
+                <!-- Wakaf -->
+                <div class="program-card" id="prog-sumur">
+                    <div class="program-emoji">💧</div>
+                    <div class="program-badge">Wakaf</div>
+                    <h3>Wakaf Sumur</h3>
+                    <p>Jariyah mengalirkan air bersih tanpa henti. Setiap tetes adalah pahala abadi.</p>
                     <div class="program-progress">
-
-                        <div class="progress-bar">
-
-                            <div class="progress-fill" style="width: 30%"></div>
-
-                        </div>
-
-                        <span class="progress-label">30% terpenuhi</span>
-
+                        <div class="progress-bar"><div class="progress-fill" style="width: 62%"></div></div>
+                        <span class="progress-label">Terus mengalir</span>
                     </div>
+                    <a href="https://lazharfa.org/campaign/wakafsumur?ref=mrz76" target="_blank" class="btn btn-primary btn-full prog-btn">💚 Wakaf Sekarang →</a>
+                </div>
 
+                <div class="program-card" id="prog-quran-pelosok">
+                    <div class="program-emoji">📖</div>
+                    <div class="program-badge">Wakaf</div>
+                    <h3>Wakaf Al-Qur'an Pelosok</h3>
+                    <p>Kirim Al-Qur'an untuk penyintas bencana & anak-anak di desa terpencil.</p>
+                    <div class="program-progress">
+                        <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
+                        <span class="progress-label">Terus dibutuhkan</span>
+                    </div>
+                    <a href="https://lazharfa.org/campaign/wakaf-al-quran-untuk-penyintas-bencana-dan-pelosok?ref=659fs" target="_blank" class="btn btn-primary btn-full prog-btn">💚 Wakaf Sekarang →</a>
+                </div>
+
+                <div class="program-card" id="prog-jariyah-quran">
+                    <div class="program-emoji">🕌</div>
+                    <div class="program-badge">Jariyah</div>
+                    <h3>Sedekah Jariyah Al-Qur'an</h3>
+                    <p>Investasi akhirat: setiap huruf yang dibaca = pahala mengalir untukmu selamanya.</p>
+                    <div class="program-progress">
+                        <div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div>
+                        <span class="progress-label">Pahala abadi</span>
+                    </div>
+                    <a href="https://lazharfa.org/campaign/sedekah-jariyah-al-qur-39-an-investasi-abadi-untuk-akhirat?ref=sugkx" target="_blank" class="btn btn-primary btn-full prog-btn">💚 Donasi Sekarang →</a>
+                </div>
+
+                <!-- Sosial -->
+                <div class="program-card" id="prog-sepeda">
+                    <div class="program-emoji">🚲</div>
+                    <div class="program-badge">Sosial</div>
+                    <h3>Harapan di Balik Sepeda</h3>
+                    <p>Setiap kayuhan sepedanya adalah perjuangan untuk keluarganya. Bantu mereka!</p>
+                    <div class="program-progress">
+                        <div class="progress-bar"><div class="progress-fill" style="width: 35%"></div></div>
+                        <span class="progress-label">Masih perlu bantuan</span>
+                    </div>
+                    <a href="https://lazharfa.org/campaign/setiap-kayuhan-sepedanya-adalah-harapan-untuk-keluarga?ref=6ms5h" target="_blank" class="btn btn-primary btn-full prog-btn">💚 Bantu Sekarang →</a>
+                </div>
+
+                <div class="program-card" id="prog-pemulung">
+                    <div class="program-emoji">🏚️</div>
+                    <div class="program-badge">Sosial</div>
+                    <h3>Bantu Keluarga Pemulung</h3>
+                    <p>Satu keluarga jadi pemulung, bantu mereka hidup layak dan bermartabat.</p>
+                    <div class="program-progress">
+                        <div class="progress-bar"><div class="progress-fill" style="width: 28%"></div></div>
+                        <span class="progress-label">Butuh dukunganmu</span>
+                    </div>
+                    <a href="https://lazharfa.org/campaign/satu-keluarga-jadi-pemulung-bantu-mereka-hidup-layak?ref=5qpe7" target="_blank" class="btn btn-primary btn-full prog-btn">💚 Bantu Sekarang →</a>
                 </div>
 
             </div>
@@ -1096,7 +1138,7 @@
     <!-- FIREBASE SDK (For Real-time Ticker) -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-    <script src="app.js"></script>
+    <script src="app.js?v=1.0.2"></script>
 </body>
 
 

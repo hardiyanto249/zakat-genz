@@ -1,5 +1,25 @@
 # Changelog: Kuy Zakat (by LAZ Harfa)
 
+## Version: 4.0 (Modernization & Real-time Command Center)
+**Date:** 07 April 2026
+
+### 🚀 Added
+*   **Modern QRIS Interaction**: Implementasi Modal QRIS interaktif langsung di dalam situs, lengkap dengan *Interactive Progress Bar 20 Detik* untuk manajemen ekspektasi user.
+*   **Auto-Reward System**: Logika sukses otomatis berbasis durasi scan (15s+) yang memberikan apresiasi instan kepada donatur.
+*   **Kindness Star Badge (🌟)**: Fitur gamifikasi baru di Navbar bertuliskan *"Gue sudah sedekah hari ini"* (Auto-reset setiap hari) untuk meningkatkan *social pride* donatur Gen-Z.
+*   **Command Center Premium**: Halaman Dashboard Intelijen `analytics.html` dengan tampilan visual premium untuk memantau KPI (Impressions, Conversion, Revenue Potential) secara real-time.
+*   **Zakat Maal Intent Broadcast**: Sistem pencatatan niat Zakat Maal yang tetap diarahkan ke Telegram Bot (Sharia-Compliant) namun tetap disiarkan ke *Live Ticker* dan Dashboard sebagai *Social Proof*.
+
+### 🛠 Changed
+*   **REST-Bypass Tracking Mode**: Migrasi total sistem pelaporan analitik dari Firebase SDK ke jalur **REST API (HTTP Fetch)** untuk menembus pemblokiran jaringan/browser/AdBlocker.
+*   **Unified Data Stream:** Penggabungan seluruh log aktivitas (donasi & klik) ke dalam satu wadah data terpusat (`recent_donations`) untuk efisiensi sinkronisasi.
+*   **Guided UX Flow**: Transformasi tombol "Nominal Bebas" menjadi sistem *Smooth Scroll* terpadu menuju Input Slider dengan efek *Pulse Glow Focus*.
+
+### 🔧 Fixes & Stability
+*   **Firebase Handshake Fix**: Mengatasi error "Handshake Lost/Blocked" pada browser modern melalui metode *polling* data interval.
+*   **UI Resiliency**: Perbaikan tata letak Navbar agar Badge Bintang tampil proporsional di berbagai ukuran layar HP.
+
+
 ## Version: 3.1 (Gamification & Security Update)
 **Date:** 29 Maret 2026
 
