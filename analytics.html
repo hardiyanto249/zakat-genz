@@ -150,7 +150,7 @@
     </div>
 
     <script>
-        const DB_URL = "https://kuy-zakat-default-rtdb.asia-southeast1.firebasedatabase.app/recent_donations.json";
+        const DB_URL = "https://kuy-zakat-default-rtdb.asia-southeast1.firebasedatabase.app/analytics.json";
         const logBody = document.getElementById('log-body');
         const statusEl = document.getElementById('conn-status');
         
@@ -178,29 +178,49 @@
 
         function renderData(data) {
             logBody.innerHTML = '';
-            stats = { page_view:0, open_qris:0, qris_done:0, qris_confirm:0, zakat_maal_intent:0 };
+            stats = { page_view:0, hitung_penghasilan:0, hitung_maal:0, bayar_kalkulator:0 };
             totalRevenue = 0;
             totalViews = 0;
 
-            const entries = Object.values(data).reverse().slice(0, 50);
+            const entries = Object.values(data).reverse().slice(0, 100);
             
             entries.forEach(item => {
-                const type = item.type || 'legacy';
-                const eventName = item.event || 'donation';
+                const type = item.type || 'event';
+                const eventName = item.event || 'action';
                 const timestamp = item.timestamp ? new Date(item.timestamp).toLocaleTimeString() : '--:--';
                 
                 // Aggregation logic
                 if(item.event === 'page_view') totalViews++;
-                if(item.amount) totalRevenue += parseInt(item.amount) || 0;
+                
+                // Extract amount (zakat or amount)
+                let amount = 0;
+                if (item.data) {
+                    amount = item.data.zakat || item.data.amount || 0;
+                } else if (item.amount) {
+                    amount = item.amount;
+                }
+                if (amount) totalRevenue += parseInt(amount) || 0;
                 
                 if(item.event) {
                     if(!stats[item.event]) stats[item.event] = 0;
                     stats[item.event]++;
                 }
 
-                // Row Construction
-                let badgeClass = item.type === 'event' ? 'bg-purple' : 'bg-green';
-                let payloadText = item.event ? item.event.replace(/_/g, ' ') : `Sedekah ${formatRp(item.amount)} (${item.city})`;
+                // Row Construction / Details Formatting
+                let badgeClass = item.event === 'page_view' ? 'bg-cyan' : (item.event === 'bayar_kalkulator' ? 'bg-green' : 'bg-purple');
+                
+                let payloadText = item.event ? item.event.replace(/_/g, ' ') : 'action';
+                if (item.data) {
+                    if (item.event === 'hitung_penghasilan' || item.event === 'hitung_maal') {
+                        payloadText += ` (Harta: ${formatRp(item.data.total)}, Zakat: ${formatRp(item.data.zakat)})`;
+                    } else if (item.event === 'bayar_kalkulator') {
+                        payloadText += ` (Tab: ${item.data.tab || '-'})`;
+                    } else if (item.event === 'open_qris' || item.event === 'qris_success_auto') {
+                        payloadText += ` (Nominal: ${formatRp(item.data.amount)})`;
+                    } else {
+                        payloadText += ` (${JSON.stringify(item.data)})`;
+                    }
+                }
                 
                 logBody.innerHTML += `<tr>
                     <td style="color:var(--text-secondary); font-size:0.75rem">${timestamp}</td>
@@ -226,7 +246,7 @@
             chartBox.innerHTML = '';
             
             const sorted = Object.entries(stats).sort((a,b) => b[1] - a[1]);
-            const max = Math.max(...Object.values(stats));
+            const max = Math.max(...Object.values(stats), 1);
 
             sorted.forEach(([key, val]) => {
                 const pct = (val / max) * 100;

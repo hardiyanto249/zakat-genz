@@ -416,3 +416,5 @@ document.body.addEventListener('click', (e) => {
 
 // Initial Setup
 initStreak();
+trackAction('page_view');
+
