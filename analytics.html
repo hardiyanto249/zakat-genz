@@ -163,10 +163,8 @@
                 const res = await fetch(DB_URL);
                 if (!res.ok) throw new Error();
                 const data = await res.json();
-                if(data) {
-                    statusEl.innerHTML = '🟢 LIVE MONITORING ACTIVE';
-                    renderData(data);
-                }
+                statusEl.innerHTML = '🟢 LIVE MONITORING ACTIVE';
+                renderData(data || {});
             } catch (e) {
                 statusEl.innerHTML = '🔴 RE-CONNECTING SYNC...';
             }
@@ -183,6 +181,10 @@
             totalViews = 0;
 
             const entries = Object.values(data).reverse().slice(0, 100);
+            
+            if (entries.length === 0) {
+                logBody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:35px; color:var(--text-secondary)">📡 Belum ada aktivitas tercatat hari ini</td></tr>`;
+            }
             
             entries.forEach(item => {
                 const type = item.type || 'event';
